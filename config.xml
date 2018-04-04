@@ -90,6 +90,4 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.2.3">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.325159181067-9dict7lmn07bniiv6nupl9c18uvqvf1l" />
     </plugin>
-    <allow-navigation href="http://172.23.31.168:8100" />
-    <allow-navigation href="http://3.62.193.44:8100" />
 </widget>
