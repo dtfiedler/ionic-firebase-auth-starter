@@ -90,4 +90,12 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.2.3">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.325159181067-9dict7lmn07bniiv6nupl9c18uvqvf1l" />
     </plugin>
+    <plugin name="cordova-plugin-ionic" spec="^4.1.3">
+        <variable name="APP_ID" value="befca8ae" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="WARN_DEBUG" value="true" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+    </plugin>
 </widget>
