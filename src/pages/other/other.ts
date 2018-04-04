@@ -7,6 +7,7 @@ import {
   AlertController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
 import {TabsPage} from '../../pages/tabs/tabs';
+import { IntroPage } from '../intro/intro';
 
 @IonicPage()
 @Component({
@@ -27,8 +28,32 @@ export class OtherPage {
     this.navCtrl.pop();
   }
 
+  createAccount(){
+    this.navCtrl.push(IntroPage)
+  }
+
+  loginWithFacebook(){
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+    this.authProvider.loginWithFacebook().then((res) => {
+      this.authProvider.loginToFirebaseWithFacebookToken(res.authResponse.accessToken).then(() => {
+        this.loading.dismiss().then(() => {
+          //if user does exist send us to the home page
+          this.navCtrl.setRoot(TabsPage);
+        }) 
+      }, error => {
+        this.loading.dismiss().then(() => {
+          this.displayAuthError(error.message)
+        })
+      })
+    }).catch((error) => {
+      this.loading.dismiss().then(() => {
+        this.displayAuthError(error.message)
+      })
+    });
+  }
+
   loginWithGoogle(){
-    //create loading controller for page
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     this.authProvider.loginWithGoogle().then((res) => {
@@ -37,13 +62,29 @@ export class OtherPage {
             //if user does exist send us to the home page
             this.navCtrl.setRoot(TabsPage);
         }) 
+      }, error => {
+        this.loading.dismiss().then(() => {
+          this.displayAuthError(error.message)
+        })
       })
     }).catch((error) => {
-      this.loading.dismiss()
+      this.loading.dismiss().then(() => {
+        this.displayAuthError(error.message)
+      })
     });
   }
 
-  displayError(message){
-
+  //display any auth errors
+  displayAuthError(message){
+    let alert = this.alertCtrl.create({
+      message: message,
+      buttons: [
+        {
+          text: "Ok",
+          role: 'cancel'
+        }
+      ]
+    });
+    alert.present();
   }
 }

@@ -1,11 +1,15 @@
 // import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook'
+
 import firebase from 'firebase'
 
 @Injectable()
 export class AuthProvider {
-  constructor(private googlePlus: GooglePlus) {
+  constructor(
+    private googlePlus: GooglePlus,
+    public facebook: Facebook) {
     console.log('Hello AuthProvider Provider');
   }
 
@@ -36,8 +40,8 @@ export class AuthProvider {
     });
   }
 
-  signUpWithFacebook(){
-
+  loginWithFacebook():Promise<any> {
+    return this.facebook.login(['email']);
   }
 
   loginWithGoogle(): Promise<any>{
@@ -46,8 +50,14 @@ export class AuthProvider {
       'offline': false
     })
   }
+
   loginToFirebaseWithToken(token): Promise<void>{
       const googleCredential = firebase.auth.GoogleAuthProvider.credential(token)
       return firebase.auth().signInWithCredential(googleCredential)
+  }
+
+  loginToFirebaseWithFacebookToken(token): Promise<void>{
+    const facebookCredential = firebase.auth.FacebookAuthProvider.credential(token);
+    return firebase.auth().signInWithCredential(facebookCredential)
   }
 }

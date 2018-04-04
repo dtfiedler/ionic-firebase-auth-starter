@@ -98,4 +98,8 @@
         <variable name="UPDATE_API" value="https://api.ionicjs.com" />
         <variable name="MAX_STORE" value="2" />
     </plugin>
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="346228042554103" />
+        <variable name="APP_NAME" value="BrownBag" />
+    </plugin>
 </widget>

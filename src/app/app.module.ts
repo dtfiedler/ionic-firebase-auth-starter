@@ -17,6 +17,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { OtherPage } from '../pages/other/other';
 import { AuthProvider } from '../providers/auth/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook'
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    GooglePlus
+    GooglePlus,
+    Facebook
   ]
 })
 export class AppModule {}

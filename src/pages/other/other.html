@@ -9,7 +9,7 @@
     <ion-grid style="height: 100%">
       <ion-row justify-content-center align-items-center style="height: 100%">
         <ion-col col-12>
-          <button class="facebook" ion-button round icon-start full color="secondary" ><ion-icon name="logo-facebook" ></ion-icon>Facebook</button>
+          <button class="facebook" ion-button round icon-start full color="secondary" (click)="loginWithFacebook()"><ion-icon name="logo-facebook" ></ion-icon>Facebook</button>
           <button class="facebook" ion-button round icon-start full color="secondary" (click)="loginWithGoogle()"><ion-icon name="logo-google" ></ion-icon>Google</button>
           <button class="facebook" ion-button round icon-start full color="secondary" ><ion-icon name="logo-twitter" ></ion-icon>Twitter</button>
           <button class="clear" ion-button round outline col-12 color="secondary" (click)="createAccount()">Create account</button>
