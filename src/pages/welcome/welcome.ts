@@ -1,9 +1,18 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform, ModalController } from 'ionic-angular';
+import { 
+  IonicPage, 
+  NavController, 
+  Platform, 
+  ModalController, 
+  Loading, 
+  LoadingController, 
+  AlertController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { IntroPage } from '../intro/intro';
 import { StatusBar } from 'ionic-native';
 import { OtherPage } from '../other/other';
+import { TabsPage } from '../tabs/tabs';
+import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -11,8 +20,16 @@ import { OtherPage } from '../other/other';
   templateUrl: 'welcome.html',
 })
 export class WelcomePage {
+  public loading: Loading;
+
   other: OtherPage
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform,public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController,     
+    public authProvider: AuthProvider,
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+     public platform: Platform,
+     public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -24,6 +41,27 @@ export class WelcomePage {
   loginModal(){
     this.navCtrl.push(LoginPage)
   }
+  
+  loginWithFacebook(){
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+    this.authProvider.loginWithFacebook().then((res) => {
+      this.authProvider.loginToFirebaseWithFacebookToken(res.authResponse.accessToken).then(() => {
+        this.loading.dismiss().then(() => {
+          //if user does exist send us to the home page
+          this.navCtrl.setRoot(TabsPage);
+        }) 
+      }, error => {
+        this.loading.dismiss().then(() => {
+          this.displayAuthError(error.message)
+        })
+      })
+    }).catch((error) => {
+      this.loading.dismiss().then(() => {
+        this.displayAuthError(error.message)
+      })
+    });
+  }
 
   createAccount(){
     this.navCtrl.push(IntroPage)
@@ -32,5 +70,19 @@ export class WelcomePage {
   otherModal(){
     let otherModal = this.modalCtrl.create(OtherPage);
     otherModal.present();
+  }
+
+  //display any auth errors
+  displayAuthError(message){
+    let alert = this.alertCtrl.create({
+      message: message,
+      buttons: [
+        {
+          text: "Ok",
+          role: 'cancel'
+        }
+      ]
+    });
+    alert.present();
   }
 }

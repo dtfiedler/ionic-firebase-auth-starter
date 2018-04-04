@@ -32,7 +32,7 @@ export class OtherPage {
     this.navCtrl.push(IntroPage)
   }
 
-  loginWithFacebook(){
+  public loginWithFacebook(){
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     this.authProvider.loginWithFacebook().then((res) => {

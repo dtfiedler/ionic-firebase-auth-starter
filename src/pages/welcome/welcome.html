@@ -22,7 +22,7 @@
     </ion-row>
     <ion-row justify-content-center align-items-center>
       <ion-col col-12>
-        <button class="facebook" ion-button round icon-start full color="secondary" ><ion-icon name="logo-facebook" ></ion-icon>Continue with Facebook</button>
+        <button class="facebook" ion-button round icon-start full color="secondary" (click)="loginWithFacebook()" ><ion-icon name="logo-facebook" ></ion-icon>Continue with Facebook</button>
         <button class="clear" ion-button round outline col-12 color="secondary" (click)="createAccount()">Create Account</button>
         <button float-left item-left ion-button class="white-text" (click)="otherModal()" clear>More Options</button>
       </ion-col>

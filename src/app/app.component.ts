@@ -12,6 +12,7 @@ import firebase from 'firebase';
 export class MyApp {
   rootPage:any;
 
+  
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) { 
     this.initializeApp();
     this.intializeFirebase();
@@ -36,15 +37,5 @@ export class MyApp {
       messagingSenderId: "325159181067"
     };
     firebase.initializeApp(config);
-    //for auth signout
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      if (!user) {
-        this.rootPage = WelcomePage;
-        unsubscribe();
-      } else {
-        this.rootPage = TabsPage;
-        unsubscribe();
-      }
-    });
   }
 }

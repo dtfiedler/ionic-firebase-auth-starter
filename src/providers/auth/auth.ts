@@ -10,12 +10,10 @@ export class AuthProvider {
   constructor(
     private googlePlus: GooglePlus,
     public facebook: Facebook) {
-    console.log('Hello AuthProvider Provider');
   }
 
   loginWithEmail(email: string, password: string): Promise<any>{
-      //sign in with firebase using the email and password provided by our input fields
-      return firebase.auth().signInWithEmailAndPassword(email, password)
+    return firebase.auth().signInWithEmailAndPassword(email, password)
   }
 
   logoutUser(): Promise<void> {
