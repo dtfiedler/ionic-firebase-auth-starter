@@ -1,0 +1,74 @@
+<ion-header no-border>
+  <ion-navbar transparent class="navbar-blue">
+  </ion-navbar>
+</ion-header>
+<ion-content>
+<ion-slides (ionSlideDidChange)="slideChanged()" pager="false" style="height:40vh">
+    <ion-slide>
+          <ion-row justify-content-center align-items-center>
+            <ion-col col-11>
+                <h1>{{questionList[0]}}</h1>
+                <ion-label fixed>First Name</ion-label>
+                <ion-input color="dark" name="firstName" type="text" value="" [(ngModel)]="firstName"></ion-input>
+                <ion-label fixed>Last Name</ion-label>
+                <ion-input color="dark" name="lastName" type="text" value="" [(ngModel)]="lastName"></ion-input>
+            </ion-col>
+          </ion-row>
+    </ion-slide>
+    <ion-slide>
+        <ion-row justify-content-center align-items-center>
+            <ion-col col-11>
+                <h1>{{questionList[1]}}</h1>
+                <ion-label fixed>Email</ion-label>
+                <ion-input color="dark" name="email" type="email" value="" [(ngModel)]="email"></ion-input>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </ion-col>
+          </ion-row>
+    </ion-slide>
+    <ion-slide>
+      <ion-row justify-content-center align-items-center>
+          <ion-col col-11>
+              <h1>{{questionList[2]}}</h1>
+              <ion-label fixed>Password</ion-label>
+              <ion-input color="dark" name="password" type="password" value="" min="8" [(ngModel)]="password"></ion-input>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+          </ion-col>
+        </ion-row>
+  </ion-slide>
+    <ion-slide >
+        <ion-row justify-content-center align-items-center>
+            <ion-col col-11>
+              <h1>{{questionList[3]}}</h1>
+              <ion-label fixed>Address</ion-label>
+              <ion-searchbar color="dark"[(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()"></ion-searchbar>
+              <ion-list fixed>
+                <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+                  {{ item }}
+                </ion-item>
+              </ion-list>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+          </ion-col>
+      </ion-row>
+    </ion-slide>
+  </ion-slides>
+  <ion-row justify-content-center align-items-center>
+      <ion-col col-6>
+          <button *ngIf="showFabLeft" float-left large ion-button clear color="secondary" icon-only (tap)="prevSlide()"><ion-icon style="zoom:1.25" name="ios-arrow-dropleft" large></ion-icon></button>
+      </ion-col>
+      <ion-col col-6>
+        <button *ngIf="showFabRight" float-right large ion-button clear color="secondary" icon-only (tap)="nextSlide()"><ion-icon style="zoom:1.25" name="ios-arrow-dropright" large ></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-content>

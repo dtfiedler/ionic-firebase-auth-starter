@@ -1,0 +1,20 @@
+page-login {
+    ion-input {
+        border-bottom: 1px solid #dedede;
+        color: #f4f4f4;
+        font-size: 20px;
+    }
+
+    ion-content{
+        background:linear-gradient(110deg, #4fc3f7, #0093c4) !important; 
+    }
+
+    p, h1, button, .white-text, ion-label {
+        color: #f4f4f4;
+    }
+
+    .button {
+        height: 100px !important;
+    }
+
+}

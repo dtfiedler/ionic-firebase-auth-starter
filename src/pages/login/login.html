@@ -1,0 +1,28 @@
+<ion-header no-border>
+    <ion-navbar transparent class="navbar-blue">
+        <ion-buttons end> 
+            <button ion-button clear large (click)="loginModal()" class="white-text"> Forgot Password </button> 
+          </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+<ion-content padding>
+<ion-row justify-content-center align-items-center>
+    <ion-col col-10>
+      <h1 float-left>Log in</h1>
+    </ion-col>
+    <br>
+  </ion-row>
+  <ion-row justify-content-center align-items-center>
+    <ion-col col-10>
+        <ion-label fixed>Email</ion-label>
+        <ion-input color="dark" name="email" type="text" value="" [(ngModel)]="email"></ion-input>
+        <ion-label fixed>Password</ion-label>
+        <ion-input color="dark" name="password" type="password" [(ngModel)]="password"></ion-input>
+      </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+          <ion-col col-12>
+            <button float-right large ion-button clear color="secondary" icon-only (tap)="login()"><ion-icon style="zoom:1.5" name="ios-arrow-dropright" large ></ion-icon></button>
+          </ion-col>
+        </ion-row>
+  </ion-content>

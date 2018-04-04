@@ -1,0 +1,37 @@
+<ion-header no-border>
+  <ion-navbar transparent class="navbar-blue">
+    <ion-buttons end> 
+
+      <button ion-button clear large (click)="loginModal()" class="white-text"> Log in </button> 
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-row justify-content-center align-items-center>
+        <ion-col col-12>
+            <img style="height:10vh; background-color: transparent; box-shadow: none" src="./assets/imgs/bag.png">
+          </ion-col>
+      </ion-row>
+    <ion-row justify-content-center align-items-center>
+      <ion-col col-12>
+        <h1 float-left>Welcome to BrownBag</h1>
+      </ion-col>
+      <br>
+    </ion-row>
+    <ion-row justify-content-center align-items-center>
+      <ion-col col-12>
+        <button class="facebook" ion-button round icon-start full color="secondary" ><ion-icon name="logo-facebook" ></ion-icon>Continue with Facebook</button>
+        <button class="clear" ion-button round outline col-12 color="secondary" (click)="createAccount()">Create Account</button>
+        <button float-left item-left ion-button class="white-text" (click)="otherModal()" clear>More Options</button>
+      </ion-col>
+    </ion-row>
+    <ion-row justify-content-center align-items-center>
+      <ion-col col-12>
+          <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+      </ion-col>
+    </ion-row>
+</ion-content>

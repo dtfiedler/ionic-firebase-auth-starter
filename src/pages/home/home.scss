@@ -1,0 +1,29 @@
+page-home {
+    .inner {
+        width: 1250px;
+        height: 100%;
+        ion-card {
+            display: table-cell;
+            border: solid 1px #cccc;
+            color: #cccc;
+            width: auto;
+            h1{
+                font-weight: 900;
+            }
+        }
+    }
+
+    .col{
+        flex-grow: 0.25 !important;
+    }
+    
+    img {
+        max-height: 150px;
+        width: auto;
+        object-fit: cover;
+    }
+
+    h2 {
+        font-weight: 2500 !important;
+    }
+}

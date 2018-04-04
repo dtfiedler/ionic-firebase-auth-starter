@@ -1,0 +1,31 @@
+page-other {
+    ion-row {
+        margin: 10px;
+    }
+
+    ion-content{
+        background:linear-gradient(110deg, #4fc3f7, #0093c4) !important; 
+    }
+
+    p {
+        font-size:10px;
+    }
+
+    .button {
+        margin-top: 10px;
+    }
+
+    p, h1, button, .white-text {
+        color: #f4f4f4;
+        padding-left: 0px;
+    }
+
+    .facebook {
+        color: #4fc3f7;
+        box-shadow: none;
+    }
+
+    .clear {
+        box-shadow: none;
+    }
+}
