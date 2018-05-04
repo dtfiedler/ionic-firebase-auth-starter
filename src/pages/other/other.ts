@@ -57,7 +57,7 @@ export class OtherPage {
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     this.authProvider.loginWithGoogle().then((res) => {
-      this.authProvider.loginToFirebaseWithToken(res.idToken).then(() => {
+      this.authProvider.loginToFirebaseWithGoogleToken(res.idToken).then(() => {
         this.loading.dismiss().then(() => {
             //if user does exist send us to the home page
             this.navCtrl.setRoot(TabsPage);

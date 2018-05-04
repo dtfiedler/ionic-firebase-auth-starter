@@ -3,45 +3,52 @@ import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook'
 
-import firebase from 'firebase'
+import firebase, { User } from 'firebase'
 
 @Injectable()
 export class AuthProvider {
+
   constructor(
     private googlePlus: GooglePlus,
     public facebook: Facebook) {
   }
 
+  //normal login
   loginWithEmail(email: string, password: string): Promise<any>{
     return firebase.auth().signInWithEmailAndPassword(email, password)
   }
 
-  logoutUser(): Promise<void> {
-    return firebase.auth().signOut();
+  //logout user
+  logoutUser(): Promise<void>  {
+     return firebase.auth().signOut()
   }
 
+  //send reset password link
   resetPassword(email: string): Promise<void> {
     return firebase.auth().sendPasswordResetEmail(email);
   }
 
-  signupWithEmail(email: string, password: string): Promise<any> {
+  //create user in firebase, save user to database
+  signupWithEmail(email: string, password: string, firstName: string, lastName: string): Promise<any> {
     return firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then( newUser => {
-      console.log('succesfully created new user')
-      // firebase
-      // .database()
-      // .ref('/userProfile')
-      // .child(newUser.uid)
-      // .set({ email: email });
+    .then(newUser => {
+      newUser.updateProfile({
+        displayName: firstName + " " + lastName,
+        photoURL: ""
+      }).then(()=> {
+        console.log('succesfully created ew user and saved to database');
+      })
     });
   }
 
+  //login using facebook
   loginWithFacebook():Promise<any> {
     return this.facebook.login(['email']);
   }
 
+  //login using google
   loginWithGoogle(): Promise<any>{
      return this.googlePlus.login({
       'webClientId': '325159181067-9dict7lmn07bniiv6nupl9c18uvqvf1l.apps.googleusercontent.com',
@@ -49,7 +56,8 @@ export class AuthProvider {
     })
   }
 
-  loginToFirebaseWithToken(token): Promise<void>{
+
+  loginToFirebaseWithGoogleToken(token): Promise<void>{
       const googleCredential = firebase.auth.GoogleAuthProvider.credential(token)
       return firebase.auth().signInWithCredential(googleCredential)
   }
@@ -57,5 +65,9 @@ export class AuthProvider {
   loginToFirebaseWithFacebookToken(token): Promise<void>{
     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(token);
     return firebase.auth().signInWithCredential(facebookCredential)
+  }
+
+  currentUser(){
+    return firebase.auth().currentUser
   }
 }

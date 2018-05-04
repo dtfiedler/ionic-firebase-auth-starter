@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -10,12 +10,24 @@ import firebase from 'firebase';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  @ViewChild(Nav) nav: Nav;
 
+  rootPage:any;  
   
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) { 
     this.initializeApp();
     this.intializeFirebase();
+    this.unsubscribe();
+  }
+
+  unsubscribe(){
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        this.rootPage = WelcomePage;
+      } else {
+        this.rootPage = TabsPage;
+      }
+    });
   }
 
   initializeApp() {
@@ -37,5 +49,9 @@ export class MyApp {
       messagingSenderId: "325159181067"
     };
     firebase.initializeApp(config);
+  }
+
+  logout(){
+    this.nav.setRoot(WelcomePage)
   }
 }

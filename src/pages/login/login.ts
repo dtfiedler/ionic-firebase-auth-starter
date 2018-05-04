@@ -9,7 +9,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers: [AuthProvider]
 })
 
 export class LoginPage {

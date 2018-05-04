@@ -3,12 +3,14 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController } from 
 import { Slides } from 'ionic-angular';
 import firebase from 'firebase';
 import { TabsPage } from '../tabs/tabs';
+import { AuthProvider } from '../../providers/auth/auth';
 declare var google;
 
 @IonicPage()
 @Component({
   selector: 'page-intro',
   templateUrl: 'intro.html',
+  providers: [AuthProvider]
 })
 export class IntroPage {
   @ViewChild(Slides) slides: Slides;
@@ -25,7 +27,12 @@ export class IntroPage {
   lastName: string;
   location: string;
   service = new google.maps.places.AutocompleteService();
-  constructor(public navCtrl: NavController, public navParams: NavParams, private zone: NgZone, public loadingCtrl: LoadingController){
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private zone: NgZone, 
+    public loadingCtrl: LoadingController,
+    public authProvider: AuthProvider,
+  ){
     this.question = this.questionList[0]
     this.autocompleteItems = [];
     this.autocomplete = {
@@ -90,25 +97,23 @@ export class IntroPage {
     });
   }
 
+  //create a new account with email and password
   createAccount(){
     let me = this;
     //create loading controller for page
     this.loading = this.loadingCtrl.create();
     this.loading.present();
-    //create user with firebase
-    firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user => {
-      //set values for user
-      user.updateProfile({
-        displayName: me.firstName + " " + me.lastName,
-        photoURL: ""
-      }).then(()=> {
-        me.loading.dismiss();
-        me.navCtrl.setRoot(TabsPage)
-      })
+    //save user to firebase auth users
+    this.authProvider.signupWithEmail(this.email, this.password, this.firstName, this.lastName).then(user => {
+      //user gets saved to database as well
+      me.loading.dismiss();
+      //go to home page
+      me.navCtrl.setRoot(TabsPage)
     }).catch(error  => {
       console.log('failed to create user', error);
       //display error!
       me.loading.dismiss();
+      //display error
     });
   }
 }

@@ -4,7 +4,6 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -18,14 +17,15 @@ import { OtherPage } from '../pages/other/other';
 import { AuthProvider } from '../providers/auth/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook'
+import { MessagePage } from '../pages/messages/messages';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TabsPage,
+    MessagePage,
     LoginPage, 
     IntroPage,
     WelcomePage,
@@ -41,10 +41,10 @@ import { Facebook } from '@ionic-native/facebook'
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TabsPage,
+    MessagePage,
     LoginPage, 
     IntroPage,
     WelcomePage,
