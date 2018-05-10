@@ -27,6 +27,7 @@ export class IntroPage {
   location: string;
   rightEnabled: boolean = false
   leftEnabled: boolean = false
+  signUpButtonText: string;
   service = new google.maps.places.AutocompleteService();
 
   constructor(public navCtrl: NavController, 
@@ -70,6 +71,10 @@ export class IntroPage {
         this.displayAuthError("You are missing some information!")
       }
     } else {
+      //check if going to next slide
+      if (this.slides._activeIndex === 1) {
+        this.signUpButtonText = "Finish"
+      }
       this.slides.lockSwipeToNext(false);
       this.slides.slideNext();
       this.slides.lockSwipeToNext(true);    
@@ -77,6 +82,7 @@ export class IntroPage {
   }
 
   prevSlide(){
+    this.signUpButtonText = null
     this.slides.lockSwipeToNext(false);
     this.slides.slidePrev();
     this.slides.lockSwipeToNext(true);    
