@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -21,6 +22,7 @@ import { Facebook } from '@ionic-native/facebook'
 import { MessagePage } from '../pages/messages/messages';
 import { DishProvider } from '../providers/dish/dish';
 import { ChatProvider } from '../providers/chat/chat';
+import { MealsPage } from '../pages/meals/meals';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage, 
     IntroPage,
     WelcomePage,
-    OtherPage
+    OtherPage,
+    MealsPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ChatProvider } from '../providers/chat/chat';
     LoginPage, 
     IntroPage,
     WelcomePage,
-    OtherPage
+    OtherPage, 
+    MealsPage
   ],
   providers: [
     StatusBar,
@@ -62,7 +66,8 @@ import { ChatProvider } from '../providers/chat/chat';
     GooglePlus,
     Facebook,
     DishProvider,
-    ChatProvider
+    ChatProvider, 
+    Geolocation
   ]
 })
 export class AppModule {}
