@@ -43,16 +43,18 @@ export class AuthProvider {
     })
   }
 
-
+  //after firebase token retrieved, login with google auth
   loginToFirebaseWithGoogleToken(token): Promise<void>{
       const googleCredential = firebase.auth.GoogleAuthProvider.credential(token)
       return firebase.auth().signInWithCredential(googleCredential)
   }
 
+  //after firebase token retrieved, login with facebook auth
   loginToFirebaseWithFacebookToken(token): Promise<void>{
     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(token);
     return firebase.auth().signInWithCredential(facebookCredential)
   }
+
   //send reset password link
   resetPassword(email: string): Promise<void> {
     return firebase.auth().sendPasswordResetEmail(email);

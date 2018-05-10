@@ -38,10 +38,17 @@ export class WelcomePage {
     })
   }
 
+  //create new account
+  createAccount(){
+    this.navCtrl.push(IntroPage)
+  }
+
+  //go to login page
   loginModal(){
     this.navCtrl.push(LoginPage)
   }
   
+  //login/signup with facebook
   loginWithFacebook(){
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -58,15 +65,12 @@ export class WelcomePage {
       })
     }).catch((error) => {
       this.loading.dismiss().then(() => {
-        this.displayAuthError(error.message)
+        this.displayAuthError(error)
       })
     });
   }
 
-  createAccount(){
-    this.navCtrl.push(IntroPage)
-  }
-
+  //more options sign in button
   otherModal(){
     let otherModal = this.modalCtrl.create(OtherPage);
     otherModal.present();

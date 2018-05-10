@@ -1,7 +1,6 @@
 import { Component, ViewChild, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
-import firebase from 'firebase';
 import { TabsPage } from '../tabs/tabs';
 import { AuthProvider } from '../../providers/auth/auth';
 declare var google;
@@ -26,12 +25,16 @@ export class IntroPage {
   firstName: string;
   lastName: string;
   location: string;
+  rightEnabled: boolean = false
+  leftEnabled: boolean = false
   service = new google.maps.places.AutocompleteService();
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private zone: NgZone, 
     public loadingCtrl: LoadingController,
     public authProvider: AuthProvider,
+    public alertCtrl: AlertController
   ){
     this.question = this.questionList[0]
     this.autocompleteItems = [];
@@ -60,7 +63,12 @@ export class IntroPage {
 
   nextSlide(){
     if (this.slides.isEnd()){
-      this.createAccount();
+      //validate fields
+      if (this.email && this.password && this.firstName && this.lastName){
+        this.createAccount();
+      } else {
+        this.displayAuthError("You are missing some information!")
+      }
     } else {
       this.slides.lockSwipeToNext(false);
       this.slides.slideNext();
@@ -110,10 +118,24 @@ export class IntroPage {
       //go to home page
       me.navCtrl.setRoot(TabsPage)
     }).catch(error  => {
-      console.log('failed to create user', error);
-      //display error!
-      me.loading.dismiss();
       //display error
+      me.loading.dismiss().then(() => {
+        this.displayAuthError(error.message)
+      })
     });
+  }
+
+  //display any auth errors
+  displayAuthError(message){
+    let alert = this.alertCtrl.create({
+      message: message,
+      buttons: [
+        {
+          text: "Ok",
+          role: 'cancel'
+        }
+      ]
+    });
+    alert.present();
   }
 }

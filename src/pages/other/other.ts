@@ -32,7 +32,8 @@ export class OtherPage {
     this.navCtrl.push(IntroPage)
   }
 
-  public loginWithFacebook(){
+  //login/signup with facebook
+  loginWithFacebook(){
     this.loading = this.loadingCtrl.create();
     this.loading.present();
     this.authProvider.loginWithFacebook().then((res) => {
@@ -48,11 +49,12 @@ export class OtherPage {
       })
     }).catch((error) => {
       this.loading.dismiss().then(() => {
-        this.displayAuthError(error.message)
+        this.displayAuthError(error)
       })
     });
   }
 
+  //login/signup with Google
   loginWithGoogle(){
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -63,13 +65,14 @@ export class OtherPage {
             this.navCtrl.setRoot(TabsPage);
         }) 
       }, error => {
+        console.log(error)
         this.loading.dismiss().then(() => {
           this.displayAuthError(error.message)
         })
       })
     }).catch((error) => {
       this.loading.dismiss().then(() => {
-        this.displayAuthError(error.message)
+        this.displayAuthError(error)
       })
     });
   }
