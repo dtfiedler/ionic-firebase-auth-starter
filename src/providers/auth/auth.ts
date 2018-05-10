@@ -2,15 +2,22 @@
 import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook'
-
+import { Storage } from '@ionic/storage';
 import firebase, { User } from 'firebase'
 
 @Injectable()
 export class AuthProvider {
 
   constructor(
+    private storage: Storage,
     private googlePlus: GooglePlus,
     public facebook: Facebook) {
+  }
+
+  //returns current user
+  currentUser(){
+    console.log("Current user:", firebase.auth().currentUser)
+    return firebase.auth().currentUser
   }
 
   //normal login
@@ -21,26 +28,6 @@ export class AuthProvider {
   //logout user
   logoutUser(): Promise<void>  {
      return firebase.auth().signOut()
-  }
-
-  //send reset password link
-  resetPassword(email: string): Promise<void> {
-    return firebase.auth().sendPasswordResetEmail(email);
-  }
-
-  //create user in firebase, save user to database
-  signupWithEmail(email: string, password: string, firstName: string, lastName: string): Promise<any> {
-    return firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(newUser => {
-      newUser.updateProfile({
-        displayName: firstName + " " + lastName,
-        photoURL: ""
-      }).then(()=> {
-        console.log('succesfully created ew user and saved to database');
-      })
-    });
   }
 
   //login using facebook
@@ -66,8 +53,32 @@ export class AuthProvider {
     const facebookCredential = firebase.auth.FacebookAuthProvider.credential(token);
     return firebase.auth().signInWithCredential(facebookCredential)
   }
-
-  currentUser(){
-    return firebase.auth().currentUser
+  //send reset password link
+  resetPassword(email: string): Promise<void> {
+    return firebase.auth().sendPasswordResetEmail(email);
   }
+
+  //create user in firebase, save user to database
+  signupWithEmail(email: string, password: string, firstName: string, lastName: string): Promise<any> {
+    return firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(newUser => {
+      newUser.updateProfile({
+        displayName: firstName + " " + lastName,
+        photoURL: ""
+      }).then(()=> {
+        console.log('succesfully created ew user and saved to database');
+      })
+    });
+  }
+
+  setFirebaseKey(key){
+    this.storage.set('auth_key', key)
+  }
+
+  getFirebaseKey(){
+    return this.storage.get('auth_key')
+  }
+
 }

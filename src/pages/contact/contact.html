@@ -1,21 +1,14 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Contact
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
   <ion-list inset>
     <ion-list-header>
-      <h1>First name</h1>
+      <h1>{{currentUser.firstName}} {{currentUser.lastName}}</h1>
       <ion-avatar item-end>
         <img src="{{currentUser.photoURL}}">
       </ion-avatar>
+      
     </ion-list-header>
     <ion-item>
-      <ion-icon name="ionic" item-start></ion-icon>
+      <ion-icon name="ionic" item-end></ion-icon>
     </ion-item>
     <ion-item>
       <ion-icon name="ionic" item-start></ion-icon>

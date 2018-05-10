@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -18,6 +19,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook'
 import { MessagePage } from '../pages/messages/messages';
+import { DishProvider } from '../providers/dish/dish';
+import { ChatProvider } from '../providers/chat/chat';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import { MessagePage } from '../pages/messages/messages';
     HttpClientModule,
     IonicModule.forRoot(MyApp , {
       mode: "md"
-    })
+    }),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -56,7 +60,9 @@ import { MessagePage } from '../pages/messages/messages';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GooglePlus,
-    Facebook
+    Facebook,
+    DishProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}
