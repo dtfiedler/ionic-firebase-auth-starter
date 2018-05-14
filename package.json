@@ -1,5 +1,5 @@
 {
-  "name": "BrownBag",
+  "name": "Ionic-Firebase-Auth-Starter",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -66,7 +66,7 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-googleplus": {
-        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.325159181067-9dict7lmn07bniiv6nupl9c18uvqvf1l"
+        "REVERSED_CLIENT_ID": "REVERSE CLIENT ID"
       },
       "cordova-plugin-ionic": {
         "APP_ID": "befca8ae",
@@ -77,13 +77,9 @@
         "MAX_STORE": "2"
       },
       "cordova-plugin-facebook4": {
-        "APP_ID": "346228042554103",
-        "APP_NAME": "BrownBag"
-      },
-      "cordova-sqlite-storage": {},
-      "cordova-plugin-geolocation": {
-        "GEOLOCATION_USAGE_DESCRIPTION": "We need your location to share meals and dishes near you"
-      }
+        "APP_ID": "CORDOVA APP id",
+        "APP_NAME": "app_name"
+      },    
     },
     "platforms": [
       "ios"

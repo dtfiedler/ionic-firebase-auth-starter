@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.brownbag" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.ionic.ionic-firebase-starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>BrownBag</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -78,9 +78,6 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
-        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>We want your location! Best regards NSA</string>
-        </edit-config>
     </platform>
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
@@ -89,9 +86,8 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <engine name="ios" spec="~4.5.4" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
-    <allow-navigation href="http://3.57.107.128:8100" />
     <plugin name="cordova-plugin-googleplus" spec="^5.2.3">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.325159181067-9dict7lmn07bniiv6nupl9c18uvqvf1l" />
+        <variable name="REVERSED_CLIENT_ID" value="REVERSE CLIENT ID HERE" />
     </plugin>
     <plugin name="cordova-plugin-ionic" spec="^4.1.3">
         <variable name="APP_ID" value="befca8ae" />
@@ -102,12 +98,7 @@
         <variable name="MAX_STORE" value="2" />
     </plugin>
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="346228042554103" />
-        <variable name="APP_NAME" value="BrownBag" />
-    </plugin>
-    <allow-navigation href="http://172.23.59.44:8100" />
-    <plugin name="cordova-sqlite-storage" spec="^2.3.1" />
-    <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
-        <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="We need your location to share meals and dishes near you" />
+        <variable name="APP_ID" value="APP ID HERE FOR FACEBOOK" />
+        <variable name="APP_NAME" value="APP_NAME HERE" />
     </plugin>
 </widget>

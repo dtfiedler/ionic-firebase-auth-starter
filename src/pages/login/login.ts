@@ -26,7 +26,7 @@ export class LoginPage {
     public alertCtrl: AlertController,
   ) {}
 
-  login(){
+  loginWithEmail(){
     //create loading controller for page
     this.loading = this.loadingCtrl.create();
     this.loading.present();
@@ -38,18 +38,66 @@ export class LoginPage {
         this.navCtrl.setRoot(TabsPage);
       })      
     }).catch((error) => {
-      this.loading.dismiss().then( () => {
-        let alert = this.alertCtrl.create({
-          message: error.message,
-          buttons: [
-            {
-              text: "Ok",
-              role: 'cancel'
-            }
-          ]
-        });
-        alert.present();
-      });
+      this.displayAuthError(error.message)
     });
   }
+
+  //login/signup with facebook
+  loginWithFacebook(){
+    this.loading = this.loadingCtrl.create();
+    this.loading.present();
+    this.authProvider.loginWithFacebook().then((res) => {
+      this.authProvider.loginToFirebaseWithFacebookToken(res.authResponse.accessToken).then(() => {
+        this.loading.dismiss().then(() => {
+          //if user does exist send us to the home page
+          this.navCtrl.setRoot(TabsPage);
+        }) 
+      }, error => {
+        this.loading.dismiss().then(() => {
+          this.displayAuthError(error.message)
+        })
+      })
+    }).catch((error) => {
+      this.loading.dismiss().then(() => {
+        this.displayAuthError(error)
+      })
+    });
+  }
+  
+    //login/signup with Google
+    loginWithGoogle(){
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+      this.authProvider.loginWithGoogle().then((res) => {
+        this.authProvider.loginToFirebaseWithGoogleToken(res.idToken).then(() => {
+          this.loading.dismiss().then(() => {
+              //if user does exist send us to the home page
+              this.navCtrl.setRoot(TabsPage);
+          }) 
+        }, error => {
+          console.log(error)
+          this.loading.dismiss().then(() => {
+            this.displayAuthError(error.message)
+          })
+        })
+      }).catch((error) => {
+        this.loading.dismiss().then(() => {
+          this.displayAuthError(error)
+        })
+      });
+    }
+  
+    //display any auth errors
+    displayAuthError(message){
+      let alert = this.alertCtrl.create({
+        message: message,
+        buttons: [
+          {
+            text: "Ok",
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present();
+    }
 }

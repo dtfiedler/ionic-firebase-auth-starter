@@ -19,10 +19,15 @@
         <ion-label fixed>Password</ion-label>
         <ion-input color="dark" name="password" type="password" [(ngModel)]="password"></ion-input>
       </ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col col-12>
+          <button class="facebook" ion-button round icon-start full color="secondary" (click)="loginWithFacebook()"><ion-icon name="logo-facebook" ></ion-icon>Facebook</button>
+          <button class="facebook" ion-button round icon-start full color="secondary" (click)="loginWithGoogle()"><ion-icon name="logo-google" ></ion-icon>Google</button>      </ion-row>
+        </ion-col>
       </ion-row>
       <ion-row justify-content-center align-items-center>
-          <ion-col col-12>
-            <button float-right large ion-button clear color="secondary" icon-only (tap)="login()"><ion-icon style="zoom:1.5" name="ios-arrow-dropright" large ></ion-icon></button>
-          </ion-col>
-        </ion-row>
+        <ion-col col-12>
+          <button float-right large ion-button clear color="secondary" icon-only (tap)="loginWithEmail()"><ion-icon style="zoom:1.5" name="ios-arrow-dropright" large ></ion-icon></button>
+        </ion-col>
+      </ion-row>
   </ion-content>
