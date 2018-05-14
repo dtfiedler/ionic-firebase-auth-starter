@@ -3,8 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { TabsPage } from '../pages/tabs/tabs';
 import { AuthProvider } from '../providers/auth/auth';
-import { HomePage } from '../pages/home/home';
 import configs from '../../firebase';
 
 @Component({
@@ -38,23 +38,21 @@ export class MyApp {
   }
 
   //log user out
-  logout(){
-    this.auth.logoutUser().then(() => {
-      this.nav.setRoot(WelcomePage)
+  public logout():Promise<any> {
+    return this.auth.logoutUser().then(() => {
+      this.rootPage = WelcomePage
     })
   }
 
   //subscribe to user auth state
   watchUserAuth(){
-    const subscribe = this.auth.firebaseAuth().onAuthStateChanged(user => {
+    this.auth.firebaseAuth().onAuthStateChanged(user => {
       if (!user){
         //user is unsbscribed
         this.rootPage = WelcomePage
-        subscribe()
       } else {
         //still authenticated
-        this.rootPage = HomePage
-        subscribe()
+        this.rootPage = TabsPage
       }
     })
   }

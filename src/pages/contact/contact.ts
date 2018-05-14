@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth'
 import { User } from 'firebase';
+import { MyApp } from '../../app/app.component';
 
 @Component({
   selector: 'page-contact',
-  templateUrl: 'contact.html'
+  templateUrl: 'contact.html',
+  providers: [AuthProvider]
 })
 export class ContactPage {
   public loading: Loading;
@@ -14,7 +16,8 @@ export class ContactPage {
   constructor(
     public navCtrl: NavController, 
     public authProvider: AuthProvider,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController
+  ) {
       this.currentUser = this.authProvider.currentUser();
       console.log(this.currentUser)
   }
