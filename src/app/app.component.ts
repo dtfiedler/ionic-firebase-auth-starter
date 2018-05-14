@@ -2,34 +2,27 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { TabsPage } from '../pages/tabs/tabs';
 import { WelcomePage } from '../pages/welcome/welcome';
-import firebase from 'firebase';
+import { AuthProvider } from '../providers/auth/auth';
+import { HomePage } from '../pages/home/home';
+import configs from '../../firebase';
 
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [AuthProvider]
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage:any;  
   
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) { 
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public auth: AuthProvider) { 
     this.initializeApp();
     this.intializeFirebase();
-    this.unsubscribe();
+    this.watchUserAuth();
   }
 
-  unsubscribe(){
-    firebase.auth().onAuthStateChanged(user => {
-      if (!user) {
-        this.rootPage = WelcomePage;
-      } else {
-        this.rootPage = TabsPage;
-      }
-    });
-  }
-
+  //intitalize and get plugins ready
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -39,19 +32,30 @@ export class MyApp {
     });
   }
 
+  //intialize firebase
   intializeFirebase(){
-    var config = {
-      apiKey: "AIzaSyB7sUGTcabTJ22lHqtLAlra8tDXc-y3Ab0",
-      authDomain: "brownbag-44cd7.firebaseapp.com",
-      databaseURL: "https://brownbag-44cd7.firebaseio.com",
-      projectId: "brownbag-44cd7",
-      storageBucket: "brownbag-44cd7.appspot.com",
-      messagingSenderId: "325159181067"
-    };
-    firebase.initializeApp(config);
+    this.auth.initializeApp(configs.firebaseConfigs);
   }
 
+  //log user out
   logout(){
-    this.nav.setRoot(WelcomePage)
+    this.auth.logoutUser().then(() => {
+      this.nav.setRoot(WelcomePage)
+    })
+  }
+
+  //subscribe to user auth state
+  watchUserAuth(){
+    const subscribe = this.auth.firebaseAuth().onAuthStateChanged(user => {
+      if (!user){
+        //user is unsbscribed
+        this.rootPage = WelcomePage
+        subscribe()
+      } else {
+        //still authenticated
+        this.rootPage = HomePage
+        subscribe()
+      }
+    })
   }
 }

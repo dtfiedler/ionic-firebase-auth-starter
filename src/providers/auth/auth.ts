@@ -3,21 +3,26 @@ import { Injectable } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook'
 import { Storage } from '@ionic/storage';
-import firebase, { User } from 'firebase'
+import firebase from 'firebase'
 
 @Injectable()
 export class AuthProvider {
-
   constructor(
     private storage: Storage,
     private googlePlus: GooglePlus,
-    public facebook: Facebook) {
+    public facebook: Facebook
+   ) {
   }
 
   //returns current user
   currentUser(){
     console.log("Current user:", firebase.auth().currentUser)
     return firebase.auth().currentUser
+  }
+
+  //intialize app
+  initializeApp(configs) {
+    return firebase.initializeApp(configs)
   }
 
   //normal login
@@ -75,12 +80,18 @@ export class AuthProvider {
     });
   }
 
+  //store uuid for firebase
   setFirebaseKey(key){
     this.storage.set('auth_key', key)
   }
 
+  //get firebase auth instance
+  firebaseAuth(){
+    return firebase.auth()
+  }
+
+  //retrieve uuid for firebse
   getFirebaseKey(){
     return this.storage.get('auth_key')
   }
-
 }
